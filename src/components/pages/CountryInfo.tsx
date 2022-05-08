@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { Box, Button, CircularProgress, Grid, Paper, Typography } from "@mui/material";
+import React, { useEffect, useState, useCallback } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Box, Button, CircularProgress, Paper, Typography } from "@mui/material";
 
 
 interface InitNameProps {
@@ -25,18 +25,21 @@ interface InitCountryDataInfo {
 
 const CountryInfo: React.FC = () => {
 
-    const { name } = useParams<InitNameProps>();
-    const history = useHistory();
+    const { name } = useParams();
+    const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
     const [weatherLoading, setWeatherLoading] = useState<boolean>(false);
     const [countryName, setCountryName] = useState<InitCountryData>();
     const [weatherInfo, setWeatherInfo] = useState<InitCountryDataInfo>();
+    // console.log(countryName)
 
     useEffect(() => {
         getCountry();
+        console.log('get country')
     }, []);
 
-    const getCountry = async () => {
+
+    const getCountry = useCallback(async () => {
         try {
             setLoading(true);
             const res = await fetch(`https://restcountries.com/v3.1/name/${name}`);
@@ -47,7 +50,7 @@ const CountryInfo: React.FC = () => {
             setLoading(false);
             console.log(error);
         }
-    }
+    }, [name])
 
     const getWeatherInfo = async () => {
         try {
@@ -62,13 +65,14 @@ const CountryInfo: React.FC = () => {
         }
     }
 
+
     return (
-        <Grid className="country-info" >
+        <div className="country-info" data-testid="details">
             <Typography sx={{ fontSize: 20, fontWeight: 900, textTransform: 'uppercase', color: '#00acc1', textDecoration: 'underline', my: 5 }}>Country Info</Typography>
             <Button
                 size="medium"
                 variant="contained"
-                onClick={() => history.push(`/`)}
+                onClick={() => navigate(`/`)}
             >
                 Bake To Home Page
             </Button>
@@ -144,7 +148,7 @@ const CountryInfo: React.FC = () => {
                         </Box>
                     </Box>
             }
-        </Grid >
+        </div >
     )
 }
 

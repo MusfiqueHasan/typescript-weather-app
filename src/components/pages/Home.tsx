@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+const Home:React.FC = () => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [countryName, setCountryName] = useState<string>("");
 
@@ -13,7 +13,7 @@ const Home = () => {
     }
 
     const onSubmit = () => {
-        history.push(`/country/${countryName}`);
+        navigate(`/country/${countryName}`);
     }
 
     return (
@@ -22,7 +22,9 @@ const Home = () => {
                 <Paper elevation={2} sx={{ p: 3 }}>
                     <Grid container spacing={1}>
                         <Grid item xs={12} md={12} lg={12} mb="50px">
-                            <Typography sx={{ fontSize: 20, fontWeight: 900, textTransform: 'uppercase', color: '#00acc1', textDecoration: 'underline' }}>Get your  Weather information</Typography>
+                            <Typography
+                                data-testid="title"
+                                sx={{ fontSize: 20, fontWeight: 900, textTransform: 'uppercase', color: '#00acc1', textDecoration: 'underline' }}>Get your  Weather information</Typography>
                         </Grid>
                         <Grid item xs={12} md={12} lg={12}>
                             <TextField
@@ -35,6 +37,7 @@ const Home = () => {
                         </Grid>
                         <Grid item xs={12} md={12} lg={12}>
                             <Button
+                                data-testid="button"
                                 size="medium"
                                 variant="contained"
                                 disabled={!countryName}

@@ -1,20 +1,20 @@
 import { CircularProgress } from '@mui/material';
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 const Home = lazy(() => import('./components/pages/Home'));
 const CountryInfo = lazy(() => import('./components/pages/CountryInfo'));
 
-const App: React.FC = () => {
+const App:React.FC = () => {
   return (
-    <div className="App" >
+    <div className="App" data-testid="app">
       <Suspense fallback={<CircularProgress />}>
         <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/country/:name" component={CountryInfo} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/country/:name" element={<CountryInfo />} />
+          </Routes>
         </BrowserRouter>
       </Suspense>
     </div>
