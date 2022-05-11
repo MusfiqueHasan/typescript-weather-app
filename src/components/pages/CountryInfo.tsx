@@ -3,9 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Box, Button, CircularProgress, Paper, Typography } from "@mui/material";
 
 
-interface InitNameProps {
-    name: string
-}
+
 
 interface InitCountryData {
     capital: string[],
@@ -33,10 +31,7 @@ const CountryInfo: React.FC = () => {
     const [weatherInfo, setWeatherInfo] = useState<InitCountryDataInfo>();
     // console.log(countryName)
 
-    useEffect(() => {
-        getCountry();
-        console.log('get country')
-    }, []);
+
 
 
     const getCountry = useCallback(async () => {
@@ -65,6 +60,10 @@ const CountryInfo: React.FC = () => {
         }
     }
 
+    useEffect(() => {
+        getCountry();
+        console.log('get country')
+    }, [getCountry]);
 
     return (
         <div className="country-info" data-testid="details">
