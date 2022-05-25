@@ -1,29 +1,19 @@
 import React from 'react';
+import CountryInfo from '../components/pages/CountryInfo';
+import { InitCountryData } from '../components/pages/interfaces';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from "history"
 import { render, screen } from '@testing-library/react';
-import CountryInfo from '../components/pages/CountryInfo';
 import { setupServer } from 'msw/node'
 import { rest } from 'msw'
 
-interface mockDataInterface {
-  name: {
-    flags: { svg: string },
-    capital: string[],
-    population: number,
-    latlng: string[]
-  }
 
-}
-
-const mockData: mockDataInterface = {
-  name: {
-    flags: {
-      svg: 'https://media.istockphoto.com/photos/dhaka-bangladesh-picture-id646044454?s=170667a'
-    },
-    capital: ['Dhaka'],
-    population: 164689383,
-    latlng: ['24', '90']
+const mockData: InitCountryData = {
+  capital: ['Dhaka'],
+  population: 164689383,
+  latlng: [24, 90],
+  flags: {
+    svg: 'https://media.istockphoto.com/photos/dhaka-bangladesh-picture-id646044454?s=170667a'
   }
 }
 
@@ -73,6 +63,7 @@ describe('Testing CountryInfo component', () => {
     );
     const countryInfo = await screen.findByText(/dhaka/i);
     expect(countryInfo).toBeInTheDocument();
+
   });
 })
 

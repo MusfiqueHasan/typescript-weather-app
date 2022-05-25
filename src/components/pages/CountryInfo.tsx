@@ -1,22 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, Button, CircularProgress, Paper, Typography } from "@mui/material";
+import { InitCountryData, InitCountryDataInfo } from "./interfaces";
 
-interface InitCountryData {
-    capital: string[],
-    population: number,
-    latlng: number[],
-    flags: {
-        svg: string
-    }
-}
 
-interface InitCountryDataInfo {
-    temperature: number,
-    weather_icons: string[],
-    wind_speed: number,
-    precip: number
-}
 
 const CountryInfo: React.FC = () => {
 
@@ -26,7 +13,7 @@ const CountryInfo: React.FC = () => {
     const [weatherLoading, setWeatherLoading] = useState<boolean>(false);
     const [countryName, setCountryName] = useState<InitCountryData>();
     const [weatherInfo, setWeatherInfo] = useState<InitCountryDataInfo>();
-    console.log(countryName)
+    // console.log(countryName)
 
     const getCountry = useCallback(async () => {
         try {
@@ -71,7 +58,7 @@ const CountryInfo: React.FC = () => {
             </Button>
             {
                 loading ?
-                    <Box sx={{ display: 'flex', justifyContent: 'center', my: 10 }}>
+                    <Box data-testid="loader" sx={{ display: 'flex', justifyContent: 'center', my: 10 }}>
                         <CircularProgress />
                     </Box>
                     :
