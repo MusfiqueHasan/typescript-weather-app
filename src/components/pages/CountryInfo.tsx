@@ -26,7 +26,7 @@ const CountryInfo: React.FC = () => {
     const [weatherLoading, setWeatherLoading] = useState<boolean>(false);
     const [countryName, setCountryName] = useState<InitCountryData>();
     const [weatherInfo, setWeatherInfo] = useState<InitCountryDataInfo>();
-    // console.log(countryName)
+    console.log(countryName)
 
     const getCountry = useCallback(async () => {
         try {
@@ -99,7 +99,7 @@ const CountryInfo: React.FC = () => {
                             </Box>
                         </Box>
                         :
-                        <Typography variant="h3">
+                        <Typography variant="h3" sx={{ fontWeight: 'bold' }}>
                             Country not found by name: {name}
                         </Typography>
             }

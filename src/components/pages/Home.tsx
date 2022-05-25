@@ -30,7 +30,6 @@ const Home: React.FC = () => {
                         </Grid>
                         <Grid item xs={12} md={12} lg={12}>
                             <TextField
-                                data-testid="inputField"
                                 sx={{ width: '50%' }}
                                 variant="standard"
                                 placeholder="Enter country"

@@ -20,7 +20,19 @@ describe('Testing Home component', () => {
         expect(title.textContent).toEqual("Get your Weather information");
     });
 
-    test('button Disable testing', () => {
+    test('input placeholder testing', () => {
+        const history = createMemoryHistory()
+        render(
+            <Router location={history.location} navigator={history}>
+                <Home />
+            </Router>
+        );
+
+        const placeholder: any = screen.queryByPlaceholderText("Enter country");
+        expect(placeholder).toBeInTheDocument();
+    });
+
+    test('button disable testing', () => {
         const history = createMemoryHistory()
         render(
             <Router location={history.location} navigator={history}>
@@ -33,7 +45,7 @@ describe('Testing Home component', () => {
 
     });
 
-    test('button Enable testing', async () => {
+    test('button enable testing', async () => {
         const user = UserEvent.setup()
         const history = createMemoryHistory()
         render(
@@ -64,7 +76,7 @@ describe('Testing Home component', () => {
     });
 
 
-    test('Country details routing testing', async () => {
+    test('country details routing testing', async () => {
         const user = UserEvent.setup()
         const history = createMemoryHistory({ initialEntries: ['/'] });
 
