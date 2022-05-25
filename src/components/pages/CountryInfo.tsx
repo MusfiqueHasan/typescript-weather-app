@@ -2,9 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, Button, CircularProgress, Paper, Typography } from "@mui/material";
 
-
-
-
 interface InitCountryData {
     capital: string[],
     population: number,
@@ -30,9 +27,6 @@ const CountryInfo: React.FC = () => {
     const [countryName, setCountryName] = useState<InitCountryData>();
     const [weatherInfo, setWeatherInfo] = useState<InitCountryDataInfo>();
     // console.log(countryName)
-
-
-
 
     const getCountry = useCallback(async () => {
         try {

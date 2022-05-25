@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Home:React.FC = () => {
+const Home: React.FC = () => {
 
     const navigate = useNavigate();
 
@@ -24,10 +24,13 @@ const Home:React.FC = () => {
                         <Grid item xs={12} md={12} lg={12} mb="50px">
                             <Typography
                                 data-testid="title"
-                                sx={{ fontSize: 20, fontWeight: 900, textTransform: 'uppercase', color: '#00acc1', textDecoration: 'underline' }}>Get your  Weather information</Typography>
+                                sx={{ fontSize: 20, fontWeight: 900, textTransform: 'uppercase', color: '#00acc1', textDecoration: 'underline' }}>
+                                Get your Weather information
+                            </Typography>
                         </Grid>
                         <Grid item xs={12} md={12} lg={12}>
                             <TextField
+                                data-testid="inputField"
                                 sx={{ width: '50%' }}
                                 variant="standard"
                                 placeholder="Enter country"

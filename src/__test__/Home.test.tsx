@@ -1,55 +1,88 @@
 import React from 'react';
 import { createMemoryHistory } from "history"
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import UserEvent from '@testing-library/user-event';
 import Home from '../components/pages/Home';
 import { Router } from 'react-router-dom';
 
-test('title test', () => {
-    render(<Home />);
-    const title = screen.queryByTestId("title");
-    expect(title?.textContent).toBe("Get your  Weather information");
-});
 
-test('button Disable', () => {
-    render(<Home />);
-    const button = screen.queryByTestId("button");
-    expect(button).toBeDisabled();
+describe('Testing Home component', () => {
 
-});
+    test('title testing', () => {
+        const history = createMemoryHistory()
+        render(
+            <Router location={history.location} navigator={history}>
+                <Home />
+            </Router>
+        );
 
-test('button Enable', () => {
-    render(<Home />);
-    const chkInput: any = screen.queryByPlaceholderText("Enter Country");
-    fireEvent.change(chkInput, { target: { value: "Bangladesh" } })
-    const button = screen.queryByTestId("button");
-    expect(button).toBeEnabled();
+        const title: any = screen.queryByTestId("title");
+        expect(title.textContent).toEqual("Get your Weather information");
+    });
 
-});
+    test('button Disable testing', () => {
+        const history = createMemoryHistory()
+        render(
+            <Router location={history.location} navigator={history}>
+                <Home />
+            </Router>
+        )
 
-test('update on change', () => {
-    render(<Home />);
-    const chkInput: any = screen.queryByPlaceholderText("Enter Country");
-    fireEvent.change(chkInput, { target: { value: "Bangladesh" } })
-    expect(chkInput.value).toBe("Bangladesh")
-});
+        const button = screen.queryByTestId("button");
+        expect(button).toBeDisabled();
 
-test('Country details routing', () => {
+    });
 
-    const history = createMemoryHistory({ initialEntries: ['/'] });
-    render(
-        <Router location={history.location} navigator={history}>
-            <Home />
-        </Router>
-    );
+    test('button Enable testing', async () => {
+        const user = UserEvent.setup()
+        const history = createMemoryHistory()
+        render(
+            <Router location={history.location} navigator={history}>
+                <Home />
+            </Router>
+        )
 
-    const chkInput: any = screen.queryByPlaceholderText("Enter Country");
-    fireEvent.change(chkInput, { target: { value: "Bangladesh" } })
-    const button: any = screen.queryByTestId("button");
+        const inputField: any = screen.getByRole('textbox');
+        await user.type(inputField, 'Bangladesh')
+        const button = screen.queryByTestId("button");
+        expect(button).toBeEnabled();
 
-    expect(history.location.pathname).toBe('/');
-    fireEvent.click(button);
-    expect(history.location.pathname).toBe('/Country/Bangladesh');
+    });
 
-});
+    test('update on change testing', async () => {
+        const user = UserEvent.setup()
+        const history = createMemoryHistory()
+        render(
+            <Router location={history.location} navigator={history}>
+                <Home />
+            </Router>
+        )
+
+        const inputField: any = screen.getByRole('textbox');
+        await user.type(inputField, 'Bangladesh')
+        expect(inputField.value).toBe("Bangladesh")
+    });
+
+
+    test('Country details routing testing', async () => {
+        const user = UserEvent.setup()
+        const history = createMemoryHistory({ initialEntries: ['/'] });
+
+        render(
+            <Router location={history.location} navigator={history}>
+                <Home />
+            </Router>
+        );
+
+        const inputField: any = screen.getByRole('textbox');
+        await user.type(inputField, 'Bangladesh')
+        expect(history.location.pathname).toBe('/');
+
+        const button: any = screen.getByRole('button', { name: /submit/i });
+        await user.click(button);
+        expect(history.location.pathname).toBe('/country/Bangladesh');
+
+    });
+})
 
 

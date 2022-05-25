@@ -7,17 +7,17 @@ import NotFound from './components/pages/NotFound';
 const Home = lazy(() => import('./components/pages/Home'));
 const CountryInfo = lazy(() => import('./components/pages/CountryInfo'));
 
-const App:React.FC = () => {
+const App: React.FC = () => {
   return (
     <div className="App" data-testid="app">
       <Suspense fallback={<CircularProgress />}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/country/:name" element={<CountryInfo />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        {/* <BrowserRouter>
+        </BrowserRouter> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/country/:name" element={<CountryInfo />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </Suspense>
     </div>
   );
